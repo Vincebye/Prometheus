@@ -3,7 +3,7 @@ use std::fs;
 use std::fs::create_dir;
 use std::fs::File;
 use std::io::Read;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use toml::Value;
 use walkdir::WalkDir;
 const COROUS_PATH: &str = "./data";

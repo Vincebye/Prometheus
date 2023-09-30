@@ -1,17 +1,17 @@
 # Prometheus
 
-从各个地方获取种子库
+Obtain corpora from various places to form the corpus required for fuzzing
 
-## 种子源
+## Corpus Source
 - https://github.com/strongcourage/fuzzing-corpus
 
 ## Usage
-指定种子格式 -t
-```bash
-./prometheus -t jpg
 ```
-指定输出位置 -l
-```bash
-./prometheus -l ./corpus
+Usage: Prometheus.exe [OPTIONS] --filetype <FILETYPE>
+
+Options:
+  -t, --filetype <FILETYPE>  The filetype of corpus
+  -l, --location <LOCATION>  The location to generate corpus
+  -h, --help                 Print help
 ```
 
