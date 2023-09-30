@@ -1,12 +1,11 @@
 use clap::{Arg, Command};
-use reqwest::{blocking::Client, header, Proxy};
 use std::fs;
+use std::fs::create_dir;
 use std::fs::File;
 use std::io::Read;
 use std::path::{Path, PathBuf};
 use toml::Value;
 use walkdir::WalkDir;
-
 const COROUS_PATH: &str = "./data";
 
 fn git_clone(url: &str, dataname: &str) {
@@ -44,10 +43,8 @@ fn copy_file(source_dir: &Path, dest_dir: &str) -> std::io::Result<()> {
     Ok(())
 }
 
-fn find_u(filetype: &str) {
-    let source_dir = "./data";
-    let dest_dir = "./corpus";
-    for entry in WalkDir::new(source_dir) {
+fn find_and_move(filetype: &str, dest_dir: &str) {
+    for entry in WalkDir::new(COROUS_PATH) {
         let entry = entry.unwrap();
         let path = entry.path();
         if let Some(extension) = path.extension() {
@@ -100,5 +97,14 @@ fn main() {
         index += 1;
     }
     let filetype = matches.get_one::<String>("filetype").unwrap();
-    find_u(filetype);
+    let location = if matches.contains_id("location") {
+        matches.get_one::<String>("location").unwrap()
+    } else {
+        "./corpus"
+    };
+
+    if !check_path_exist(location) {
+        create_dir(Path::new(location)).expect("Failed to create fold");
+    }
+    find_and_move(filetype, location);
 }

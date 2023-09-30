@@ -7,6 +7,5 @@ edition = "2021"
 
 [dependencies]
 clap="*"
-reqwest={version = "*",features = ["blocking"]}
 toml="*"
 walkdir="*"
